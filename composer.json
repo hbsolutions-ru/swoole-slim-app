@@ -1,0 +1,28 @@
+{
+    "name": "hbsolutions/swoole-slim-app",
+    "description": "Basis for REST API application on Slim 4 and Swoole Server.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "HBS Development Team",
+            "email": "dev.hbsolutions@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.3",
+        "slim/slim": "4.*",
+        "slim/psr7": "dev-master",
+        "php-di/php-di": "dev-master",
+        "imefisto/psr-swoole-native": "9999999-dev"
+    },
+    "require-dev": {
+        "swoole/ide-helper": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "HBS\\SwooleSlimApp\\": "src/"
+        }
+    }
+}
