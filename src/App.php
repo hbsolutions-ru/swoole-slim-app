@@ -19,7 +19,7 @@ use Swoole\Http\{
 };
 use Swoole\WebSocket\Server;
 
-final class SwooleSlimApp
+final class App
 {
     /**
      * @var SlimApp
