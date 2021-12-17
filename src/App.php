@@ -53,6 +53,12 @@ final class App
         $this->server = new Server($host, $port ?: null);
     }
 
+    /**
+     * Init Slim routes and middleware, register 'request' event handler
+     *
+     * @param callable $middlewareCallable
+     * @param callable $routesCallable
+     */
     public function init(callable $middlewareCallable, callable $routesCallable): void
     {
         $this->initMiddleware($middlewareCallable);
@@ -79,16 +85,29 @@ final class App
         });
     }
 
+    /**
+     * Returns Slim App
+     *
+     * @return SlimApp
+     */
     public function getApp(): SlimApp
     {
         return $this->app;
     }
 
+    /**
+     * Returns Swoole Server
+     *
+     * @return Server
+     */
     public function getServer(): Server
     {
         return $this->server;
     }
 
+    /**
+     * Starts Swoole Server
+     */
     public function startServer(): void
     {
         $this->server->start();
