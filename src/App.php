@@ -21,6 +21,8 @@ use Swoole\WebSocket\Server;
 
 final class App
 {
+    public const OPTION_WITH_REQUEST_LOGGER = 'withRequestLogger';
+
     /**
      * @var SlimApp
      */
@@ -58,10 +60,11 @@ final class App
      *
      * @param callable $middlewareCallable
      * @param callable $routesCallable
+     * @param array $options
      */
-    public function init(callable $middlewareCallable, callable $routesCallable): void
+    public function init(callable $middlewareCallable, callable $routesCallable, array $options): void
     {
-        $this->initMiddleware($middlewareCallable);
+        $this->initMiddleware($middlewareCallable, boolval($options[static::OPTION_WITH_REQUEST_LOGGER] ?? false));
         $this->initRoutes($routesCallable);
 
         $uriFactory = new Factory\UriFactory();
@@ -113,7 +116,7 @@ final class App
         $this->server->start();
     }
 
-    private function initMiddleware(callable $callable): void
+    private function initMiddleware(callable $callable, bool $withRequestLogger): void
     {
         // Parse json, form data and xml
         $this->app->addBodyParsingMiddleware();
@@ -123,6 +126,10 @@ final class App
 
         // Add the Slim built-in routing middleware. Should be added after CORS middleware so routing is performed first
         $this->app->addRoutingMiddleware();
+
+        if ($withRequestLogger) {
+            $this->app->add(Middleware\RequestLoggerMiddlewareInterface::class);
+        }
 
         $callable($this->app);
     }
