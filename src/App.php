@@ -62,7 +62,7 @@ final class App
      * @param callable $routesCallable
      * @param array $options
      */
-    public function init(callable $middlewareCallable, callable $routesCallable, array $options): void
+    public function init(callable $middlewareCallable, callable $routesCallable, array $options = []): void
     {
         $this->initMiddleware($middlewareCallable, boolval($options[static::OPTION_WITH_REQUEST_LOGGER] ?? false));
         $this->initRoutes($routesCallable);
