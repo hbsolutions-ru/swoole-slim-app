@@ -9,9 +9,9 @@ use HBS\SwooleSlimApp\Exception\WebSocketConnectionException;
 class ConnectionManager
 {
     /**
-     * @var AuthenticationInterface
+     * @var Server
      */
-    protected $authService;
+    protected $server;
 
     /**
      * @var ConnectionTable
@@ -19,18 +19,18 @@ class ConnectionManager
     protected $connectionTable;
 
     /**
-     * @var Server
+     * @var AuthenticationInterface
      */
-    protected $server;
+    protected $authService;
 
     public function __construct(
-        AuthenticationInterface $authService,
+        Server $server,
         ConnectionTable $connectionTable,
-        Server $server
+        AuthenticationInterface $authService
     ) {
-        $this->authService = $authService;
-        $this->connectionTable = $connectionTable;
         $this->server = $server;
+        $this->connectionTable = $connectionTable;
+        $this->authService = $authService;
     }
 
     public function register(Request $request, ...$params): void
