@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e5fcbc23cf8a9b1e7818058632d08fc",
+    "content-hash": "26e15cfb89f5206377c23d4a0ea75aaa",
     "packages": [
         {
             "name": "dflydev/fig-cookies",
@@ -836,17 +836,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/slimphp/Slim-Psr7.git",
-                "reference": "5fa2a39edcbe5e61e23e7de42afc5521325d14f7"
+                "reference": "a24ce472b745cd005d2d1d9d623d4c2874421a87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slimphp/Slim-Psr7/zipball/5fa2a39edcbe5e61e23e7de42afc5521325d14f7",
-                "reference": "5fa2a39edcbe5e61e23e7de42afc5521325d14f7",
+                "url": "https://api.github.com/repos/slimphp/Slim-Psr7/zipball/a24ce472b745cd005d2d1d9d623d4c2874421a87",
+                "reference": "a24ce472b745cd005d2d1d9d623d4c2874421a87",
                 "shasum": ""
             },
             "require": {
                 "fig/http-message-util": "^1.1.5",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0",
                 "ralouphie/getallheaders": "^3.0",
@@ -911,7 +911,7 @@
                 "issues": "https://github.com/slimphp/Slim-Psr7/issues",
                 "source": "https://github.com/slimphp/Slim-Psr7/tree/master"
             },
-            "time": "2021-12-02T19:13:34+00:00"
+            "time": "2021-12-22T18:16:39+00:00"
         },
         {
             "name": "slim/slim",
@@ -1121,12 +1121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swoole/ide-helper.git",
-                "reference": "718db78eba3001c7dc3c64f842a81f7ff9071e85"
+                "reference": "05c2ab9fe5882a1693c014bf527fe1706ca329f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swoole/ide-helper/zipball/718db78eba3001c7dc3c64f842a81f7ff9071e85",
-                "reference": "718db78eba3001c7dc3c64f842a81f7ff9071e85",
+                "url": "https://api.github.com/repos/swoole/ide-helper/zipball/05c2ab9fe5882a1693c014bf527fe1706ca329f1",
+                "reference": "05c2ab9fe5882a1693c014bf527fe1706ca329f1",
                 "shasum": ""
             },
             "default-branch": true,
@@ -1156,7 +1156,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-02T00:41:57+00:00"
+            "time": "2021-12-21T19:22:46+00:00"
         }
     ],
     "aliases": [],
@@ -1170,7 +1170,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3"
+        "php": "^7.3",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
