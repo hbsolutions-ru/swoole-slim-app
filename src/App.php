@@ -36,23 +36,33 @@ final class App
     /**
      * SwooleSlimApp constructor.
      *
-     * @param string $host
-     * @param int $port
      * @param string|array|\DI\Definition\Source\DefinitionSource ...$diContainerDefinitions
      */
-    public function __construct(string $host, int $port, ...$diContainerDefinitions)
+    public function __construct(...$diContainerDefinitions)
     {
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->addDefinitions(...$diContainerDefinitions);
 
         try {
-            $this->app = $containerBuilder->build()->get(SlimApp::class);
+            $container = $containerBuilder->build();
+        } catch (\Exception $e) {
+            printf("Failed to build DI container: %s\n", $e->getMessage());
+            exit(1);
+        }
+
+        try {
+            $this->app = $container->get(SlimApp::class);
         } catch (\Exception $e) {
             printf("Failed to create Slim App Instance: %s\n", $e->getMessage());
             exit(1);
         }
 
-        $this->server = new Server($host, $port ?: null);
+        try {
+            $this->server = $container->get(Server::class);
+        } catch (\Exception $e) {
+            printf("Failed to create Swoole Server Instance: %s\n", $e->getMessage());
+            exit(1);
+        }
     }
 
     /**
