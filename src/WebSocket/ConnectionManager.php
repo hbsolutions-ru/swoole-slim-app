@@ -33,16 +33,17 @@ class ConnectionManager
         $this->authService = $authService;
     }
 
-    public function register(Request $request, ...$params): void
+    public function register(Request $request, ...$params): ?string
     {
         try {
             $uid = $this->authService->authenticate($request, ...$params);
         } catch (WebSocketConnectionException $e) {
             $this->server->disconnect($request->fd, $e->getCode(), $e->getMessage());
-            return;
+            return null;
         }
 
         $this->registerConnection($uid, $request->fd);
+        return $uid;
     }
 
     public function push(string $uid, $data): void
