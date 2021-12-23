@@ -18,6 +18,7 @@ use Swoole\Http\{
     Response as SwooleResponse,
 };
 use Swoole\WebSocket\Server;
+use HBS\SwooleSlimApp\WebSocket\ConnectionManager;
 
 final class App
 {
@@ -34,6 +35,11 @@ final class App
     private $server = null;
 
     /**
+     * @var ConnectionManager
+     */
+    private $connectionManager = null;
+
+    /**
      * SwooleSlimApp constructor.
      *
      * @param string|array|\DI\Definition\Source\DefinitionSource ...$diContainerDefinitions
@@ -44,24 +50,44 @@ final class App
         $containerBuilder->addDefinitions(...$diContainerDefinitions);
 
         try {
+            printf("Build DI container...\n");
             $container = $containerBuilder->build();
+            printf("OK\n");
         } catch (\Exception $e) {
             printf("Failed to build DI container: %s\n", $e->getMessage());
             exit(1);
         }
 
         try {
+            printf("Create Slim App Instance...\n");
             $this->app = $container->get(SlimApp::class);
+            printf("OK\n");
         } catch (\Exception $e) {
             printf("Failed to create Slim App Instance: %s\n", $e->getMessage());
             exit(1);
         }
 
         try {
+            printf("Create Swoole Server Instance...\n");
             $this->server = $container->get(Server::class);
+            printf("OK\n");
         } catch (\Exception $e) {
             printf("Failed to create Swoole Server Instance: %s\n", $e->getMessage());
             exit(1);
+        }
+
+        /**
+         * Need to instantiate Connection Manager here to get the same object in the future.
+         * Due to some strangeness of the interaction between Swoole's request handlers
+         * and PHP-DI container: multiple instances of the Connection Manager may be created
+         * for an unknown reason.
+         */
+        try {
+            printf("Create Connection Manager Instance...\n");
+            $this->connectionManager = $container->get(ConnectionManager::class);
+            printf("OK\n");
+        } catch (\Exception $e) {
+            printf("Failed to create Connection Manager Instance: %s. Skip as not critical...\n", $e->getMessage());
         }
     }
 
@@ -124,6 +150,14 @@ final class App
     public function startServer(): void
     {
         $this->server->start();
+    }
+
+    /**
+     * @return ConnectionManager
+     */
+    public function getConnectionManager(): ConnectionManager
+    {
+        return $this->connectionManager;
     }
 
     private function initMiddleware(callable $callable, bool $withRequestLogger): void
