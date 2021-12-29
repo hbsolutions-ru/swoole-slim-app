@@ -55,6 +55,19 @@ class ConnectionManager
         }
     }
 
+    public function getConnectionsAmount(): int
+    {
+        $connectionsAmount = 0;
+
+        $this->connectionTable->rewind();
+        for ($i = 0; $i < $this->connectionTable->count(); $i++) {
+            $connectionsAmount += count($this->connectionTable->getCurrent());
+            $this->connectionTable->next();
+        }
+
+        return $connectionsAmount;
+    }
+
     protected function setConnections(string $uid, array $connections): array
     {
         $connections = array_filter(array_map('intval', $connections));

@@ -29,9 +29,14 @@ class ConnectionTable extends Table
     public function getConnections(string $key): array
     {
         $connections = $this->get($key, static::COLUMN_NAME);
-        $connections = $connections ? json_decode($connections, true) : [];
-        return is_array($connections) ? $connections : [];
+        return ($connections && is_string($connections)) ? $this->decodeConnections($connections) : [];
+    }
 
+    public function getCurrent(): array
+    {
+        $row = $this->current();
+        $connections = $row[static::COLUMN_NAME] ?? null;
+        return ($connections && is_string($connections)) ? $this->decodeConnections($connections) : [];
     }
 
     /**
@@ -53,5 +58,11 @@ class ConnectionTable extends Table
         $this->set($key, [ static::COLUMN_NAME => $connectionsString ]);
 
         return $connections;
+    }
+
+    private function decodeConnections(string $connections): array
+    {
+        $connections = json_decode($connections, true);
+        return is_array($connections) ? $connections : [];
     }
 }
