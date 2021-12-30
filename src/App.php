@@ -40,6 +40,11 @@ final class App
     private $connectionManager = null;
 
     /**
+     * @var int
+     */
+    private $serverStartTimestamp = null;
+
+    /**
      * SwooleSlimApp constructor.
      *
      * @param string|array|\DI\Definition\Source\DefinitionSource ...$diContainerDefinitions
@@ -150,6 +155,7 @@ final class App
     public function startServer(): void
     {
         $this->server->start();
+        $this->serverStartTimestamp = time();
     }
 
     /**
@@ -158,6 +164,15 @@ final class App
     public function getConnectionManager(): ConnectionManager
     {
         return $this->connectionManager;
+    }
+
+    public function getUptime(): int
+    {
+        if ($this->serverStartTimestamp === null) {
+            return 0;
+        }
+
+        return time() - $this->serverStartTimestamp;
     }
 
     private function initMiddleware(callable $callable, bool $withRequestLogger): void
