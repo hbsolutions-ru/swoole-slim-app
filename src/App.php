@@ -52,6 +52,9 @@ final class App
     public function __construct(...$diContainerDefinitions)
     {
         $containerBuilder = new ContainerBuilder();
+        $containerBuilder->addDefinitions([
+            App::class => $this,
+        ]);
         $containerBuilder->addDefinitions(...$diContainerDefinitions);
 
         try {
