@@ -157,8 +157,8 @@ final class App
      */
     public function startServer(): void
     {
-        $this->server->start();
         $this->serverStartTimestamp = time();
+        $this->server->start();
     }
 
     /**
