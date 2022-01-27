@@ -189,11 +189,11 @@ final class App
         // Add the Slim built-in routing middleware. Should be added after CORS middleware so routing is performed first
         $this->app->addRoutingMiddleware();
 
+        $callable($this->app);
+
         if ($withRequestLogger) {
             $this->app->add(Middleware\RequestLoggerMiddlewareInterface::class);
         }
-
-        $callable($this->app);
     }
 
     private function initRoutes(callable $callable): void
