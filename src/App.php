@@ -115,7 +115,7 @@ final class App
         $streamFactory = new Factory\StreamFactory();
         $responseFactory = new Factory\ResponseFactory();
         $uploadedFileFactory = new Factory\UploadedFileFactory();
-        $responseMerger = new ResponseMerger;
+        $responseMerger = new ResponseMerger();
 
         $this->server->on('request', function (SwooleRequest $request, SwooleResponse $response) use (
             $uriFactory,

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "681655e3f89bf86e37112f8ddbd7d958",
+    "content-hash": "381169346949f12a784991b504e4b0e0",
     "packages": [
         {
             "name": "dflydev/fig-cookies",
@@ -131,13 +131,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/imefisto/psr-swoole-native.git",
-                "reference": "37ef03dc0a2875863a2f9a4e67cbfa835be67787"
+                "url": "https://github.com/hbsolutions-ru/psr-swoole-native.git",
+                "reference": "0c4bc01150265957cc8ef42a0c046fb4b00474b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imefisto/psr-swoole-native/zipball/37ef03dc0a2875863a2f9a4e67cbfa835be67787",
-                "reference": "37ef03dc0a2875863a2f9a4e67cbfa835be67787",
+                "url": "https://api.github.com/repos/hbsolutions-ru/psr-swoole-native/zipball/0c4bc01150265957cc8ef42a0c046fb4b00474b4",
+                "reference": "0c4bc01150265957cc8ef42a0c046fb4b00474b4",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +148,8 @@
             },
             "require-dev": {
                 "nyholm/psr7": "^1.0",
-                "phpunit/phpunit": "^8.5"
+                "phpunit/phpunit": "^8.5",
+                "swoole/ide-helper": "^4.8"
             },
             "default-branch": true,
             "type": "library",
@@ -157,7 +158,25 @@
                     "Imefisto\\PsrSwoole\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Imefisto\\PsrSwoole\\Testing\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "./vendor/bin/phpunit --configuration phpunit.xml"
+                ],
+                "test:coverage": [
+                    "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml --log-junit build/logs/junit.xml --coverage-html build/coverage"
+                ],
+                "sniff": [
+                    "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests examples"
+                ],
+                "format": [
+                    "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests examples"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -168,10 +187,9 @@
                 }
             ],
             "support": {
-                "issues": "https://github.com/imefisto/psr-swoole-native/issues",
-                "source": "https://github.com/imefisto/psr-swoole-native/tree/v1.0.1"
+                "source": "https://github.com/hbsolutions-ru/psr-swoole-native/tree/master"
             },
-            "time": "2021-11-24T23:40:27+00:00"
+            "time": "2022-01-27T19:29:19+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -229,12 +247,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "06e2ebd25f2869e54a306dda991f7db58066f7f6"
+                "reference": "3d81e4309d2a927abbe66df935f4bb60082805ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/06e2ebd25f2869e54a306dda991f7db58066f7f6",
-                "reference": "06e2ebd25f2869e54a306dda991f7db58066f7f6",
+                "url": "https://api.github.com/repos/opis/closure/zipball/3d81e4309d2a927abbe66df935f4bb60082805ad",
+                "reference": "3d81e4309d2a927abbe66df935f4bb60082805ad",
                 "shasum": ""
             },
             "require": {
@@ -285,9 +303,9 @@
             ],
             "support": {
                 "issues": "https://github.com/opis/closure/issues",
-                "source": "https://github.com/opis/closure/tree/3.6.2"
+                "source": "https://github.com/opis/closure/tree/3.6.3"
             },
-            "time": "2021-04-09T13:42:10+00:00"
+            "time": "2022-01-27T09:35:39+00:00"
         },
         {
             "name": "php-di/invoker",
