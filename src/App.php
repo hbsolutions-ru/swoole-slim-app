@@ -8,6 +8,7 @@ use Psr\Http\Message\{
 };
 use DI\{
     ContainerBuilder,
+    Definition\Exception\InvalidDefinition,
     NotFoundException,
 };
 use Imefisto\PsrSwoole\{
@@ -98,6 +99,8 @@ final class App
             $this->connectionManager = $container->get(ConnectionManager::class);
             printf("OK\n");
         } catch (NotFoundException $e) {
+            printf("Connection Manager not found in DI container. Skip as not critical...\n");
+        } catch (InvalidDefinition $e) {
             printf("Connection Manager not configured in DI container. Skip as not critical...\n");
         } catch (\Exception $e) {
             printf("Failed to create Connection Manager Instance: %s. Skip as not critical...\n", $e->getMessage());

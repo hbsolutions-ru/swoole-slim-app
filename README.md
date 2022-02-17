@@ -44,3 +44,7 @@ $swooleServer->on('start', function(Server $server)
 // Start the Server
 $swooleSlimApp->startServer();
 ```
+
+### Demo project
+
+See [Demo project](https://github.com/hbsolutions-ru/swoole-slim-example) for more use cases.
