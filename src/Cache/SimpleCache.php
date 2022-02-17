@@ -12,7 +12,7 @@ class SimpleCache implements CacheInterface
 
     protected $table;
 
-    public function __construct(int $tableSize, float $conflictProportion = 0.2, int $columnSize = 0)
+    public function __construct(int $tableSize, float $conflictProportion = 0.1, int $columnSize = 0)
     {
         $this->table = new Table($tableSize, $conflictProportion);
 
@@ -40,6 +40,10 @@ class SimpleCache implements CacheInterface
     {
         $serialized = serialize($value);
 
+        if (strlen($serialized) >= static::COLUMN_SIZE) {
+            return false;
+        }
+
         return $this->table->set($key, [
             static::COLUMN_NAME => $serialized
         ]);
@@ -54,6 +58,10 @@ class SimpleCache implements CacheInterface
     {
         $keys = [];
         $this->table->rewind();
+
+        if (!$this->table->valid()) {
+            return false;
+        }
 
         for ($i = 0; $i < $this->table->count(); $i++) {
             $keys = $this->table->key();

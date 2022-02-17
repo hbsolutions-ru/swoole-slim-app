@@ -6,7 +6,10 @@ use Psr\Http\Message\{
     ResponseInterface as Response,
     ServerRequestInterface as Request,
 };
-use DI\ContainerBuilder;
+use DI\{
+    ContainerBuilder,
+    NotFoundException,
+};
 use Imefisto\PsrSwoole\{
     ServerRequest as PsrSwooleRequest,
     ResponseMerger,
@@ -94,6 +97,8 @@ final class App
             printf("Create Connection Manager Instance...\n");
             $this->connectionManager = $container->get(ConnectionManager::class);
             printf("OK\n");
+        } catch (NotFoundException $e) {
+            printf("Connection Manager not configured in DI container. Skip as not critical...\n");
         } catch (\Exception $e) {
             printf("Failed to create Connection Manager Instance: %s. Skip as not critical...\n", $e->getMessage());
         }
