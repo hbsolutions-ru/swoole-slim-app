@@ -136,7 +136,11 @@ final class App
 
             $psrResponse = $this->app->handle($psrRequest);
 
-            $responseMerger->toSwoole($psrResponse, $response)->end();
+            $swooleResponse = $responseMerger->toSwoole($psrResponse, $response);
+
+            if ($swooleResponse->isWritable()) {
+                $swooleResponse->end();
+            }
         });
     }
 
