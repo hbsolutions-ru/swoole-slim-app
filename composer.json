@@ -23,7 +23,8 @@
         "slim/slim": "4.*",
         "slim/psr7": "dev-master",
         "php-di/php-di": "dev-master",
-        "imefisto/psr-swoole-native": "dev-master"
+        "imefisto/psr-swoole-native": "dev-master",
+        "hbsolutions/php-helpers": "9999999-dev"
     },
     "require-dev": {
         "swoole/ide-helper": "@dev"
