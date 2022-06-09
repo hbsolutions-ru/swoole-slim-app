@@ -10,6 +10,9 @@ class SimpleCache implements CacheInterface
     protected const COLUMN_NAME = 'value';
     protected const COLUMN_SIZE = 2048;
 
+    /**
+     * @var Table
+     */
     protected $table;
 
     public function __construct(int $tableSize, float $conflictProportion = 0.1, int $columnSize = 0)
