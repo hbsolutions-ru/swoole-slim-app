@@ -67,7 +67,7 @@ class SimpleCache implements CacheInterface
         }
 
         for ($i = 0; $i < $this->table->count(); $i++) {
-            $keys = $this->table->key();
+            $keys[] = $this->table->key();
             $this->table->next();
         }
 
