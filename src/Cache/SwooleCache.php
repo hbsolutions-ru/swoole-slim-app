@@ -52,7 +52,8 @@ class SwooleCache extends SimpleCache
 
         for ($i = 0; $i < $this->table->count(); $i++) {
             $key = $this->table->key();
-            $value = $this->table->current();
+            $row = $this->table->current();
+            $value = $this->extractValue($row);
 
             if ($filterFunction($key, $value)) {
                 $data[$key] = $value;
@@ -65,5 +66,30 @@ class SwooleCache extends SimpleCache
         }
 
         return $data;
+    }
+
+    /**
+     * @param array|null $row
+     * @return mixed|null
+     */
+    protected function extractValue(?array $row)
+    {
+        if (!is_array($row)) {
+            return null;
+        }
+
+        $serialized = $row[self::COLUMN_NAME] ?? null;
+
+        if (!is_string($serialized)) {
+            return null;
+        }
+
+        $value = unserialize($serialized);
+
+        if ($value === false && $serialized !== serialize(false)) {
+            return null;
+        }
+
+        return $value;
     }
 }
