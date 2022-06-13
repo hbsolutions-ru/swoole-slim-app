@@ -34,4 +34,36 @@ class SwooleCache extends SimpleCache
     {
         return $this->table->count();
     }
+
+    public function toArray(?callable $filterFunction = null): array
+    {
+        $data = [];
+        $this->table->rewind();
+
+        if (!$this->table->valid()) {
+            return [];
+        }
+
+        if ($filterFunction === null) {
+            $filterFunction = function (string $key, ?array $value): bool {
+                return true;
+            };
+        }
+
+        for ($i = 0; $i < $this->table->count(); $i++) {
+            $key = $this->table->key();
+            $value = $this->table->current();
+
+            if ($filterFunction($key, $value)) {
+                $data[$key] = $value;
+            }
+
+            $this->table->next();
+            if (!$this->table->valid()) {
+                break;
+            }
+        }
+
+        return $data;
+    }
 }
