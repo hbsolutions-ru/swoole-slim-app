@@ -45,7 +45,7 @@ class SwooleCache extends SimpleCache
         }
 
         if ($filterFunction === null) {
-            $filterFunction = function (string $key, ?array $value): bool {
+            $filterFunction = function (string $key, $value): bool {
                 return true;
             };
         }

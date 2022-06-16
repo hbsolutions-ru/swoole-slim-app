@@ -27,15 +27,21 @@ final class RequestLoggerMiddleware implements RequestLoggerMiddlewareInterface
     {
         $now = DateTimeHelper::now();
 
+        $executionTime = -hrtime(true);
+
         $response = $handler->handle($request);
 
+        $executionTime += hrtime(true);
+
         printf(
-            "[%s] \"%s %s HTTP/%s\" %d" . PHP_EOL,
+            "[%s] \"%s %s HTTP/%s\" %d %d %.3f" . PHP_EOL,
             $now->format($this->dateTimeFormat),
             strtoupper($request->getMethod()),
             $request->getUri()->getPath(),
             $request->getProtocolVersion(),
-            $response->getStatusCode()
+            $response->getStatusCode(),
+            $response->getBody()->getSize(),
+            $executionTime / 1e+6, // Nanoseconds to Milliseconds
         );
 
         return $response;
