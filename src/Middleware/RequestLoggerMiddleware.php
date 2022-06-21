@@ -34,7 +34,8 @@ final class RequestLoggerMiddleware implements RequestLoggerMiddlewareInterface
         $executionTime += hrtime(true);
 
         printf(
-            "[%s] \"%s %s HTTP/%s\" %d %d %.3f" . PHP_EOL,
+            "%s [%s] \"%s %s HTTP/%s\" %d %d %.3f" . PHP_EOL,
+            $request->getAttribute('remote_addr') ?? '-',
             $now->format($this->dateTimeFormat),
             strtoupper($request->getMethod()),
             $request->getUri()->getPath(),
