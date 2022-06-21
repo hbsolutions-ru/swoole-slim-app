@@ -134,6 +134,8 @@ final class App
         ) {
             $psrRequest = new PsrSwooleRequest($request, $uriFactory, $streamFactory, $uploadedFileFactory);
 
+            $psrRequest = $psrRequest->withAttribute('remote_addr', $request->server['remote_addr'] ?? null);
+
             $psrResponse = $this->app->handle($psrRequest);
 
             $swooleResponse = $responseMerger->toSwoole($psrResponse, $response);
