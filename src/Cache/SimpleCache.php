@@ -10,10 +10,7 @@ class SimpleCache implements CacheInterface
     protected const COLUMN_NAME = 'value';
     protected const COLUMN_SIZE = 2048;
 
-    /**
-     * @var Table
-     */
-    protected $table;
+    protected Table $table;
 
     public function __construct(int $tableSize, float $conflictProportion = 0.1, int $columnSize = 0)
     {
@@ -39,7 +36,7 @@ class SimpleCache implements CacheInterface
         return unserialize($serialized);
     }
 
-    public function set($key, $value, $ttl = null)
+    public function set($key, $value, $ttl = null): bool
     {
         $serialized = serialize($value);
 
@@ -52,12 +49,12 @@ class SimpleCache implements CacheInterface
         ]);
     }
 
-    public function delete($key)
+    public function delete($key): bool
     {
         return $this->table->delete($key);
     }
 
-    public function clear()
+    public function clear(): bool
     {
         $keys = [];
         $this->table->rewind();
@@ -80,7 +77,7 @@ class SimpleCache implements CacheInterface
         return true;
     }
 
-    public function getMultiple($keys, $default = null)
+    public function getMultiple($keys, $default = null): array
     {
         $result = [];
 
@@ -91,7 +88,7 @@ class SimpleCache implements CacheInterface
         return $result;
     }
 
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple($values, $ttl = null): bool
     {
         $result = true;
 
@@ -103,7 +100,7 @@ class SimpleCache implements CacheInterface
         return $result;
     }
 
-    public function deleteMultiple($keys)
+    public function deleteMultiple($keys): bool
     {
         $result = true;
 
@@ -115,7 +112,7 @@ class SimpleCache implements CacheInterface
         return $result;
     }
 
-    public function has($key)
+    public function has($key): bool
     {
         return $this->table->exist($key);
     }

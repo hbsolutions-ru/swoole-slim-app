@@ -8,20 +8,11 @@ use HBS\SwooleSlimApp\Exception\WebSocketConnectionException;
 
 class ConnectionManager
 {
-    /**
-     * @var Server
-     */
-    protected $server;
+    protected Server $server;
 
-    /**
-     * @var ConnectionTable
-     */
-    protected $connectionTable;
+    protected ConnectionTable $connectionTable;
 
-    /**
-     * @var AuthenticationInterface
-     */
-    protected $authService;
+    protected AuthenticationInterface $authService;
 
     public function __construct(
         Server $server,
@@ -89,11 +80,11 @@ class ConnectionManager
     {
         $connections = $this->connectionTable->getConnections($uid);
 
-        if (array_search($connectionId, $connections, true) !== false) {
+        if (in_array($connectionId, $connections, true)) {
             return;
         }
 
-        array_push($connections, $connectionId);
+        $connections[] = $connectionId;
         $this->setConnections($uid, $connections);
     }
 }

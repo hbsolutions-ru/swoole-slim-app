@@ -28,25 +28,13 @@ final class App
 {
     public const OPTION_WITH_REQUEST_LOGGER = 'withRequestLogger';
 
-    /**
-     * @var SlimApp
-     */
-    private $app = null;
+    private SlimApp $app;
 
-    /**
-     * @var Server
-     */
-    private $server = null;
+    private Server $server;
 
-    /**
-     * @var ConnectionManager
-     */
-    private $connectionManager = null;
+    private ?ConnectionManager $connectionManager = null;
 
-    /**
-     * @var int
-     */
-    private $serverStartTimestamp = null;
+    private int $serverStartTimestamp = 0;
 
     /**
      * SwooleSlimApp constructor.
@@ -176,16 +164,16 @@ final class App
     }
 
     /**
-     * @return ConnectionManager
+     * @return ConnectionManager|null
      */
-    public function getConnectionManager(): ConnectionManager
+    public function getConnectionManager(): ?ConnectionManager
     {
         return $this->connectionManager;
     }
 
     public function getUptime(): int
     {
-        if ($this->serverStartTimestamp === null) {
+        if ($this->serverStartTimestamp === 0) {
             return 0;
         }
 

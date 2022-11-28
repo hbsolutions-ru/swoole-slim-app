@@ -15,7 +15,7 @@ class ConnectionTable extends Table
         $this->initConnectionTable();
     }
 
-    protected function initConnectionTable()
+    protected function initConnectionTable(): void
     {
         $this->column(
             static::COLUMN_NAME,
