@@ -13,10 +13,7 @@ final class RequestLoggerMiddleware implements RequestLoggerMiddlewareInterface
 {
     private const DEFAULT_DATE_TIME_FORMAT = 'Y-m-d\\TH:i:s\\.uP';
 
-    /**
-     * @var string
-     */
-    private $dateTimeFormat;
+    private string $dateTimeFormat;
 
     public function __construct(?string $dateTimeFormat = null)
     {
